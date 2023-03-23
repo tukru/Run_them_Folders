@@ -1,11 +1,7 @@
 Title:         Multi-purpose Penetration Testing Payload
-
 Author:        Tukru
-
 Version:       1.0
-
 Date:          2023-03-20
-
 Description:   This payload performs multiple penetration testing tasks on a target Windows machine, including capturing saved wireless keys, taking screenshots, capturing images from the webcam, installing and running Nmap, capturing the SAM registry hive, DNS poisoning, and collecting IP configuration details. This README provides a detailed overview of the payload's functionalities and usage instructions.
 
 Disclaimer:    Using this payload for unauthorized access, data theft, or any malicious activity is illegal and unethical. The information provided here is for educational purposes only and should not be used for malicious purposes. Always obtain explicit permission from the owner of the target system before attempting to use any penetration testing tools or techniques.
@@ -46,5 +42,3 @@ Notes:
 ------
 - This payload is designed for Windows systems. Some commands may need to be adjusted to work on macOS or Linux systems.
 - Depending on the target machine's security settings, some tasks may be blocked by security software or require administrative privileges to execute.
-
-# Run_them_Folders
