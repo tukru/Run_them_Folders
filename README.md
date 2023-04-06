@@ -1,11 +1,6 @@
 Title:         Multi-purpose Penetration Testing Payload
 
-Author:
-  ________  ____ __ ____  __  __
- /_  __/ / / / //_// __ \/ / / /
-  / / / / / / ,<  / /_/ / / / / 
- / / / /_/ / /| |/ _, _/ /_/ /  
-/_/  \____/_/ |_/_/ |_|\____/   
+Author: TUKRU  
                               
 Version:       1.0
 Date:          2023-03-20
